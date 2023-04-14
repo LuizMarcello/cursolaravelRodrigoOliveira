@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use \App\Models\Produto;
+use \App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller {
@@ -25,10 +26,13 @@ class SiteController extends Controller {
     }
 
     public function categggoria( $id ) {
-        /* Quando encadeado o método "all()", trás todos os
-           registros. Com alguma condição, usa o método "get()",
-           ou paginate(). */
-        $prrrodutos = Produto::where( 'id_categoria', $id )->paginate(3);
-        return view( 'site.categoria', compact( 'prrrodutos' ) );
+        /* Buscando a categoria pelo "id" passado no parâmetro */
+        $caaategoria = Categoria::find( $id );
+        /* Quando encadeado o método 'all()', trás todos os
+        registros. Com alguma condição, usa o método 'get()',
+        ou paginate(). */
+        $prrrodutos = Produto::where( 'id_categoria', $id )->paginate( 3 );
+        /* Enviando então a categoria para a "view" */
+        return view( 'site.categoria', compact( 'prrrodutos', 'caaategoria' ) );
     }
 }

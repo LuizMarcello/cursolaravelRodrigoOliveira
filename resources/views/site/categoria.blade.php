@@ -6,7 +6,7 @@
 
     <div class="row container">
 
-        <h3>Categoria: </h3>
+        <h3>Categoria: {{ $caaategoria->nome }} </h3>
 
         @foreach ($prrrodutos as $produttto)
             <div class="col s12 m4">

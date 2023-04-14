@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\http\Controllers\ProdutoController;
 use App\http\Controllers\SiteController;
+use App\http\Controllers\CarrinhoController;
 
 /* Rota para todos os métodos do controller
    criado com o "resource": */
@@ -13,6 +14,9 @@ Route::get('/', [SiteController::class, 'index'])->name('site.index');
 Route::get('/produto/{slug}', [SiteController::class, 'detaillls'])->name('site.details');
 
 Route::get('/categoria/{id}',[SiteController::class, 'categggoria'])->name('site.categoria');
+
+Route::get('/carrinho',[CarrinhoController::class, 'carrinhoLista'])->name('site.carrinho');
+Route::post('/carrinho',[CarrinhoController::class, 'adicionaCarrinho'])->name('site.addcarrinho');
 
 /*
 |--------------------------------------------------------------------------
