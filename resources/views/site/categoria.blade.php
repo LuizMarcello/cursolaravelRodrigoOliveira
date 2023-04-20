@@ -1,6 +1,6 @@
 @extends('site.layout')
 
-@section('title', 'Essa é a página home3')
+@section('title', 'Essa é a página Categoria')
 
 @section('conteudooo')
 

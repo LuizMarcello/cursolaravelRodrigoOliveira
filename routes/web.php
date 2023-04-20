@@ -16,6 +16,7 @@ Route::get('/produto/{slug}', [SiteController::class, 'detaillls'])->name('site.
 Route::get('/categoria/{id}',[SiteController::class, 'categggoria'])->name('site.categoria');
 
 Route::get('/carrinho',[CarrinhoController::class, 'carrinhoLista'])->name('site.carrinho');
+
 Route::post('/carrinho',[CarrinhoController::class, 'adicionaCarrinho'])->name('site.addcarrinho');
 
 /*

@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class CarrinhoController extends Controller {
     public function carrinhoLista() {
-        $itens = \Cart::getContent();
-        dd( $itens );
+        $itennns = \Cart::getContent();
+        return view( 'site.carrinho', compact( 'itennns' ) );
     }
 
     public function adicionaCarrinho( Request $request ) {
