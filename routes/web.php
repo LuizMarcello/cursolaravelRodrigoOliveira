@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\http\Controllers\ProdutoController;
 use App\http\Controllers\SiteController;
@@ -24,6 +25,13 @@ Route::post('/remover',[CarrinhoController::class, 'removeCarrinho'])->name('sit
 Route::post('/atualizar',[CarrinhoController::class, 'atualizaCarrinho'])->name('site.atualizacarrinho');
 
 Route::get('/limpar',[CarrinhoController::class, 'limparCarrinho'])->name('site.limparcarrinho');
+
+/* Rota sómente para abrir o formulário de autenticação */
+Route::view('/login', 'login.form')->name('login.form');
+
+Route::post('/auth', [LoginController::class, 'auth'])->name('login.auth');
+
+
 
 /*
 |--------------------------------------------------------------------------
