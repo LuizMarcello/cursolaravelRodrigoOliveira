@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 /* Importando a classe de autenticação */
-use Illuminate\Suporte\Facades\Auth;
 
-use Illuminate\Http\Request;
+use \Illuminate\Support\Facades\Auth;
+use \Illuminate\Http\Request;
 
 class LoginController extends Controller {
     /* Vão ser recebidos via POST, o email e a senha
@@ -12,9 +12,15 @@ class LoginController extends Controller {
 
     public function auth( Request $request ) {
         /* O atributo com as credenciais recebidas */
-        $credenciais = $request->calidate( [
+        /* Quando se usa o 'validate()', todas as mensagens de êrro
+        são armazenadas numa variável chamada 'errors'. */
+        $credenciais = $request->validate( [
             'email' => [ 'required', 'email' ],
             'password' => [ 'required' ],
+        ], [
+            'email.required' => 'O campo email é obrigatório!',
+            'email.email' => 'O email não é válido',
+            'password.required' =>'O campo senha é obrigatório!'
         ] );
 
         /* A autenticação propriamente dita */
@@ -27,13 +33,24 @@ class LoginController extends Controller {
             /* Método 'intended': Faz o redirecionamento e verifica de
             qual lugar veio o usuário qua está autenticado, para este
             usuário continuar fazendo as compras no carrinho de compras*/
-            return redirect()->intended( 'dashboard' );
+            /* Tem que usar o 'route()' para usar o nome da rota */
+            return redirect()->intended( route( 'admin.dashboard' ) );
         } else {
             /* Se ele não conseguiu logar */
             /* 'back()': Volta para a página anterior */
-            return redirect()->back()->with( 'errrro', 'Email ou senha inválidos.' )
+            return redirect()->back()->with( 'errrro', 'Email ou senha inválidos.' );
 
         }
 
+    }
+
+    public function logout( Request $request ) {
+        Auth::logout();
+        /* Invalidando a sessão */
+        $request->session()->invalidate();
+        /* Gerando um novo token */
+        $request->session()->regenerateToken();
+        /* Tem que usar o 'route()' para usar o nome da rota */
+        return redirect( route( 'site.index' ) );
     }
 }
