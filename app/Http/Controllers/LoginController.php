@@ -27,7 +27,7 @@ class LoginController extends Controller {
         /* Este método 'attempt' da classe 'Auth', verifica se existe
         algum usuário com estas credenciais no banco de dados.
         Se houver, a sessão é criada, senão não cria a sessão. */
-        if ( Auth::attempt( $credenciais ) ) {
+        if ( Auth::attempt( $credenciais, $request->remember ) ) {
             /* Gerando um novo ID para a sessão */
             $request->session()->regenerate();
             /* Método 'intended': Faz o redirecionamento e verifica de
@@ -52,5 +52,9 @@ class LoginController extends Controller {
         $request->session()->regenerateToken();
         /* Tem que usar o 'route()' para usar o nome da rota */
         return redirect( route( 'site.index' ) );
+    }
+
+    public function create() {
+        return view( 'login.create' );
     }
 }

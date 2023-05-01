@@ -6,10 +6,17 @@ use App\http\Controllers\ProdutoController;
 use App\http\Controllers\SiteController;
 use App\http\Controllers\CarrinhoController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 
+/* Criando as rotas "resource" do controller "ProdutoController" */
 /* Rota para todos os métodos do controller
    criado com o "resource": */
 Route::resource('produtos', ProdutoController::class);
+
+/* Criando as rotas "resource" do controller "UserController" */
+/* Rota para todos os métodos do controller
+   criado com o "resource": */
+Route::resource('users', UserController::class);
 
 Route::get('/', [SiteController::class, 'index'])->name('site.index');
 
@@ -23,7 +30,8 @@ Route::post('/carrinho',[CarrinhoController::class, 'adicionaCarrinho'])->name('
 
 Route::post('/remover',[CarrinhoController::class, 'removeCarrinho'])->name('site.removecarrinho');
 
-Route::post('/atualizar',[CarrinhoController::class, 'atualizaCarrinho'])->name('site.atualizacarrinho');
+Route::post('/atualizar',[CarrinhoController::class, 'atualizaCarrinho'])
+->name('site.atualizacarrinho');
 
 Route::get('/limpar',[CarrinhoController::class, 'limparCarrinho'])->name('site.limparcarrinho');
 
@@ -32,9 +40,14 @@ Route::view('/login', 'login.form')->name('login.form');
 
 Route::post('/auth', [LoginController::class, 'auth'])->name('login.auth');
 
-Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-
 Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
+
+/* Rota para abrir o formulário para cadastrar o novo usuário */
+Route::get('/register', [LoginController::class, 'create'])->name('login.create');
+
+/* Uma opção é aplicar o middleware diretamente aqui na rota */
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])
+   ->name('admin.dashboard')->middleware(['auth', 'checkemail']);
 
 /*
 |--------------------------------------------------------------------------

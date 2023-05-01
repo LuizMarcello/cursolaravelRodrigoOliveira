@@ -11,9 +11,19 @@
                     <div class="card-image">
                         <img src="{{ $produttto->imagem }}">
 
+                        {{-- @can('verProduto', $produttto) --}}
                         <a href="{{ route('site.details', $produttto->slug) }}"
                             class="btn-floating halfway-fab waves-effect waves-light red"><i
                                 class="material-icons">visibility</i></a>
+                        {{-- @else --}}
+                        {{-- @endcan --}}
+
+                        {{-- "@cannot" é o inverso de "@can" --}}
+                        {{-- @cannot('update', $post) --}}
+
+                        {{--  @else --}}
+
+                        {{-- @endcannot --}}
                     </div>
                     <div class="card-content">
                         <span class="card-title">{{ $produttto->nome }}</span>

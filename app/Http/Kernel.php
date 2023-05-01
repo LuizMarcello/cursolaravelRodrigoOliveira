@@ -47,6 +47,8 @@ class Kernel extends HttpKernel
     ];
 
     /**
+     * Middlewares individuais
+     * 
      * The application's route middleware.
      *
      * These middleware may be assigned to groups or used individually.
@@ -54,6 +56,7 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
+        'checkemail' => \App\Http\Middleware\CheckEmail::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
